@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main-container {
+    /* width: 100vw; */
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+
+    /* fallback for old browsers */
+    background: #AAFFA9;
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #11FFBD, #AAFFA9);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #11FFBD, #AAFFA9);
+}
+
+.calculator-container {
+    border: 2px solid white;
+    background-color: white;
+    width: 25vw;
+    height: 65vh;
+    box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.372);
+    border-radius: 2px;
+}
+
+.calculator-display {
+    height: 25%;
+    background-color: #000000dd;
+}
+
+.calculator-buttons {
+    display: grid;
+    grid-template-rows: repeat(5, auto);
+    grid-template-columns: repeat(4, auto);
+    gap: 0.05rem;
+    height: 75%;
+}
+
+.calculator-btn {
+    font-size: 2vw;
+    border-radius: 0;
+    border: 0;
+    box-shadow: inset 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.calculator-btn:hover{
+    background-color: rgba(0, 0, 0, 0.096);
+}
+
+.calculator-btn:active{
+    background-color: rgba(0, 0, 0, 0.15);    
+}
+
+#btn-all-clear {
+    grid-column: 1 / span 2;
+}
+
+#btn-equals {
+    grid-column: 3 / span 2;
+}
+
+/* MEDIA QUERIES */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .calculator-container {
+        width: 80vw;
+        height: 60vh;        
+    }
+
+    .calculator-btn{
+        font-size: 1.5rem;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .calculator-container {
+        width: 80vw;
+        height: 70vh;
+    }
+
+    .calculator-btn{
+        font-size: 1.5rem;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .calculator-container {
+        width: 70vw;
+        height: 60vh;
+    }    
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .calculator-container {
+        width: 45vw;
+        height: 65vh;
+    }
+
+    .calculator-btn{
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .calculator-container {
+        width: 25vw;
+        height: 70vh;
+    }    
+
+    .calculator-btn{
+        font-size: 1.5rem;
+    }
+}
