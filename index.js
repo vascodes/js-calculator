@@ -9,20 +9,37 @@ const textToDisplay = "";
 
 class Calculator {
 	displayElement;
-    textToDisplay = "";
-    
-    constructor(displayElement, textToDisplay) {
+	textToDisplay = "";
+	isCurrentNumADecimal = false;
+
+	constructor(displayElement, textToDisplay) {
 		this.displayElement = displayElement;
 		this.textToDisplay = textToDisplay;
 		this.clear();
 	}
 
-	appendNumber(number) {
-		this.textToDisplay += number.toString();
+	appendOperand(operand) {
+		if (operand === ".") {
+			let lastChar = this.textToDisplay.slice(-1);
+
+			// Do nothing if expression is empty.
+            if (lastChar === "") return;
+			
+            // Do nothing if last character in expression is an operator.
+            if (isNaN(lastChar)) return;
+
+            // Do nothing if expression has a fractional part.
+			if (this.isCurrentNumADecimal) return;
+
+			this.isCurrentNumADecimal = true;
+		}
+
+		this.textToDisplay += operand.toString();
 		this.updateDisplay();
 	}
 
 	appendOperator(operator) {
+		this.isCurrentNumADecimal = false;
 		this.textToDisplay += operator;
 		this.updateDisplay();
 	}
@@ -33,14 +50,14 @@ class Calculator {
 	}
 
 	// Remove last char displayText.
-    delete() {
+	delete() {
 		this.textToDisplay = this.textToDisplay.slice(0, -1);
 		this.updateDisplay();
 	}
 
 	calculate() {
 		// If expression to calculate is empty, do nothing.
-        if (this.textToDisplay === "") return;
+		if (this.textToDisplay === "") return;
 
 		this.textToDisplay = eval(this.textToDisplay).toString();
 		this.updateDisplay();
@@ -56,7 +73,7 @@ const calculator = new Calculator(displayElement, textToDisplay);
 // Add click event to number buttons.
 numberButtons.forEach((button) => {
 	button.addEventListener("click", () => {
-		calculator.appendNumber(button.innerText);
+		calculator.appendOperand(button.innerText);
 	});
 });
 
