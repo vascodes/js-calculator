@@ -8,7 +8,10 @@ const displayElement = document.querySelector(".calculator-display");
 const textToDisplay = "";
 
 class Calculator {
-	constructor(displayElement, textToDisplay) {
+	displayElement;
+    textToDisplay = "";
+    
+    constructor(displayElement, textToDisplay) {
 		this.displayElement = displayElement;
 		this.textToDisplay = textToDisplay;
 		this.clear();
@@ -29,7 +32,8 @@ class Calculator {
 		this.updateDisplay();
 	}
 
-	delete() {
+	// Remove last char displayText.
+    delete() {
 		this.textToDisplay = this.textToDisplay.slice(0, -1);
 		this.updateDisplay();
 	}
@@ -38,7 +42,7 @@ class Calculator {
 		// If expression to calculate is empty, do nothing.
         if (this.textToDisplay === "") return;
 
-		this.textToDisplay = eval(this.textToDisplay);
+		this.textToDisplay = eval(this.textToDisplay).toString();
 		this.updateDisplay();
 	}
 
