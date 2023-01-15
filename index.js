@@ -42,7 +42,8 @@ class Calculator {
 		this.updateDisplay();
 	}
 
-	appendOperator(operator) {
+	// TODO: Add support for negative numbers.
+    appendOperator(operator) {
 		this.isCurrentNumADecimal = false;
 
         let lastChar = this.getLastChar();   
