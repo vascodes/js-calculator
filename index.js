@@ -3,7 +3,7 @@ const numberButtons = document.querySelectorAll(".btn-number");
 const operatorButtons = document.querySelectorAll(".btn-operator");
 const allClearButton = document.querySelector("#btn-all-clear");
 const deleteButton = document.querySelector("#btn-delete");
-const equalsButton = document.querySelector(".btn-equals");
+const equalsButton = document.querySelector("#btn-equals");
 const displayElement = document.querySelector(".calculator-display");
 const textToDisplay = "";
 
@@ -19,48 +19,61 @@ class Calculator {
 		this.updateDisplay();
 	}
 
-    appendOperator(operator){
-        this.textToDisplay += operator;
+	appendOperator(operator) {
+		this.textToDisplay += operator;
 		this.updateDisplay();
-    }
+	}
 
 	clear() {
 		this.textToDisplay = "";
-        this.updateDisplay();
+		this.updateDisplay();
 	}
 
-	delete(){
-        this.textToDisplay = this.textToDisplay.slice(0, -1);
-        this.updateDisplay();
-    }
-    
-    updateDisplay() {
+	delete() {
+		this.textToDisplay = this.textToDisplay.slice(0, -1);
+		this.updateDisplay();
+	}
+
+	calculate() {
+		// If expression to calculate is empty, do nothing.
+        if (this.textToDisplay === "") return;
+
+		this.textToDisplay = eval(this.textToDisplay);
+		this.updateDisplay();
+	}
+
+	updateDisplay() {
 		this.displayElement.innerText = this.textToDisplay;
-	}    
+	}
 }
 
 const calculator = new Calculator(displayElement, textToDisplay);
 
 // Add click event to number buttons.
 numberButtons.forEach((button) => {
-	button.addEventListener("click", () => {		
+	button.addEventListener("click", () => {
 		calculator.appendNumber(button.innerText);
 	});
 });
 
 // Add click event to operand buttons.
 operatorButtons.forEach((button) => {
-	button.addEventListener("click", () => {		
-        calculator.appendOperator(button.innerText);
+	button.addEventListener("click", () => {
+		calculator.appendOperator(button.innerText);
 	});
 });
 
 // Reset calculator display on clicking clear button (AC).
 allClearButton.addEventListener("click", () => {
-    calculator.clear();
+	calculator.clear();
 });
 
 // Remove last input from display on clicking delete button.
 deleteButton.addEventListener("click", () => {
-    calculator.delete();
+	calculator.delete();
+});
+
+// Compute expression on clicking equals button.
+equalsButton.addEventListener("click", () => {
+	calculator.calculate();
 });
