@@ -17,18 +17,22 @@ class Calculator {
 		this.textToDisplay = textToDisplay;
 		this.clear();
 	}
+	
+    getLastChar(){
+        return this.textToDisplay.slice(-1);
+    }
 
-	appendOperand(operand) {
+    appendOperand(operand) {
 		if (operand === ".") {
-			let lastChar = this.textToDisplay.slice(-1);
+			let lastChar = this.getLastChar();
 
 			// Do nothing if expression is empty.
-            if (lastChar === "") return;
-			
-            // Do nothing if last character in expression is an operator.
-            if (isNaN(lastChar)) return;
+			if (lastChar === "") return;
 
-            // Do nothing if expression has a fractional part.
+			// Do nothing if last character in expression is an operator.
+			if (isNaN(lastChar)) return;
+
+			// Do nothing if expression has a fractional part.
 			if (this.isCurrentNumADecimal) return;
 
 			this.isCurrentNumADecimal = true;
@@ -40,6 +44,14 @@ class Calculator {
 
 	appendOperator(operator) {
 		this.isCurrentNumADecimal = false;
+
+        let lastChar = this.getLastChar();   
+		// Do nothing, if expression is empty.
+        if(lastChar === "") return;
+
+		// Do nothing, if last character in expression is an operator.
+		if (lastChar.match(/[+-/*]/g)) return;
+
 		this.textToDisplay += operator;
 		this.updateDisplay();
 	}
@@ -49,7 +61,7 @@ class Calculator {
 		this.updateDisplay();
 	}
 
-	// Remove last char displayText.
+	// Remove last character in expression.
 	delete() {
 		this.textToDisplay = this.textToDisplay.slice(0, -1);
 		this.updateDisplay();
